@@ -1,10 +1,15 @@
-mutable struct MD5Checksum <: AbstractChecksum{Vector{UInt32}}
+mutable struct MD5Checksum <: AbstractChecksum{Vector{UInt8}}
     state::MD5.MD5_CTX
 end
 
 MD5Checksum() = MD5Checksum(MD5.MD5_CTX())
 
-function update!(cs::MD5Checksum, data)
+function update!(cs::MD5Checksum, data::AbstractVector{UInt8})
+    update!(cs.state, data)
+    return cs
+end
+
+function update!(cs::MD5Checksum, data::UInt8)
     update!(cs.state, data)
     return cs
 end
