@@ -3,11 +3,11 @@ on:
   schedule:
     - cron: 0 0 * * *
   workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
 jobs:
   CompatHelper:
-    permissions:
-      contents: write
-      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - name: Check if Julia is already available in the PATH
