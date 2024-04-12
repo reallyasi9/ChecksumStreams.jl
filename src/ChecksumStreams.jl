@@ -10,7 +10,15 @@ export AbstractChecksum, ChecksumStream,
     Adler32Checksum, Adler32ChecksumStream,
     MD5Checksum, MD5ChecksumStream,
     SHAChecksum, SHAChecksumStream,
-    CRCChecksum, CRCChecksumStream
+    SHA1Checksum, SHA1ChecksumStream,
+    SHA224Checksum, SHA224ChecksumStream,
+    SHA256Checksum, SHA256ChecksumStream,
+    SHA284Checksum, SHA384ChecksumStream,
+    SHA512Checksum, SHA512ChecksumStream,
+    SHA2Checksum, SHA2ChecksumStream,
+    SHA3Checksum, SHA3ChecksumStream,
+    CRCChecksum, CRCChecksumStream,
+    CRC32Checksum, CRC32ChecksumStream
 
 export update!, checksum, bytes_processed, reset!
 

@@ -8,9 +8,19 @@ function CRCChecksum(spec::CRC.Spec{P}) where {P<:Unsigned}
     CRCChecksum{P, typeof(handler)}(handler, 0)
 end
 
+CRC32Checksum() = CRCChecksum(CRC.CRC_32)
+
 function update!(cs::CRCChecksum, data::AbstractVector{UInt8})
     cs.handler(data; append=true)
     cs.bytes += length(data)
+    return cs
+end
+
+# CRC library does not have a CodeUnits consumer
+function update!(cs::CRCChecksum, data::Base.CodeUnits)
+    v = unsafe_wrap(Vector{UInt8}, pointer(data), length(data))
+    cs.handler(v; append=true)
+    cs.bytes += length(v)
     return cs
 end
 
@@ -33,3 +43,5 @@ function reset!(cs::CRCChecksum)
 end
 
 CRCChecksumStream(spec::CRC.Spec, io::IO) = ChecksumStream(CRCChecksum(spec), io)
+
+CRC32ChecksumStream(io::IO) = CRCChecksumStream(CRC.CRC_32, io)

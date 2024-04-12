@@ -12,6 +12,10 @@ function update!(cs::AbstractChecksum, data::AbstractVector{UInt8})
     return cs
 end
 
+function update!(cs::AbstractChecksum, data::AbstractString)
+    return update!(cs, codeunits(data))
+end
+
 function update!(cs::AbstractChecksum, io::IO)
     buffer = Vector{UInt8}(undef, 1<<20)
     nb = readbytes!(io, buffer)
